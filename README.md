@@ -4,9 +4,11 @@
 
 Apache Kafka是一个开源消息系统，由Scala写成。是由Apache软件基金会开发的一个开源的分布式消息队列。
 
+Kafka最初是由LinkedIn公司开发，并于2011年初开源。2012年10月从Apache Incubator毕业。该项目的目标是为处理实时数据提供一个统一、高通量、低等待的平台。
+
 ### 工作原理
 
-消息中间件适用于需要可靠的数据传送的分布式环境。不同的应用程序直接并不直接关联，而是通过消息中间件提供的应用程序接口协同工作。
+Kafka适用于需要可靠的数据传送的分布式环境。不同的应用程序之间并不直接关联，而是通过消息中间件提供的应用程序接口协同工作。
 
 <img src="images/work.jpg">
 
@@ -16,7 +18,7 @@ Apache Kafka是一个开源消息系统，由Scala写成。是由Apache软件基
 
 3、应用程序B接收到消息中间件发来的应用程序A的消息，开始下一步操作，并把结果发送给消息中间件
 
-### 中间件作用
+### Kafka的用途
 
 #### 解耦：
 
@@ -28,25 +30,27 @@ Apache Kafka是一个开源消息系统，由Scala写成。是由Apache软件基
 
 ### Kafka相关术语
 
--   broker：消息代理，在 Kafka 架构中，每台 Kafka 服务器都是一个broker
+-   broker：在 Kafka 集群中，每台 Kafka 服务器主机都是一个broker
 
--   Producer：消息生产者，就是向kafka broker发消息的客户端
+-   Producer：生产者，发布消息的对象
 
--   Consumer：消息消费者，向kafka broker取消息的客户端
+-   Consumer：消费者，订阅消息并处理发布的消息的对象
 
--   Topic：消息主题，Kafka将消息以主题的方式存储在磁盘上
+-   Consumer Group：消费者群组，Kafka 架构中，消费者总是以消费者群组存在
 
--   partition：分区，Kafka 通过增加每条消息的分区来提高负载能力
+-   Topic：主题，Kafka 将消息以Topic的方式分类存储在 log 文件当中
 
--   offset：偏移量，在消费者读取消息的时候，通过索引提供的偏移量来提高消息的读取效率
+-   partition：分区，Kafka可以将消息平均划分送由分区存储，分区越多，并行读写越快，实现负载均衡。Kafka 还将分区内的消息存储在不同 broker 的follow 副本中，从而实现高可用，每个 Topic 包含一个或多个 Partition
 
--   LEO：日志文件最后偏移，Kafka 在
+-   base offset：基础偏移量，第一条消息的起始位置
 
--   HW：此项限制了消费者能够读取的最大数据的偏移量
+-   LEO：日志文件最后偏移，下一条消息的起始偏移位置
+
+-   HW：消费者可消费的消息偏移位置
 
 -   rebalance：再平衡，
 
--   segment：日志分段，Kafka 的日志文件是分段存储的，分段规则可以是时间也可以是文件大小
+-   segment：日志分段，Kafka 的日志文件采用分段存储，分段规则可以是时间也可以是文件大小
 
 -   leader：生产者发送的每条消息都会有一个消息 leader，只有它负责与消费者交互
 
